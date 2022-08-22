@@ -1,0 +1,55 @@
+数据访问层：通过DAL对数据库进行的SQL语句等操作，就是用于专门跟数据库进行交互。执行数据的添加、删除、修改和显示等。
+
+业务逻辑层：用于做一些有效性验证的工作，以更好地保证程序运行的健壮性。如完成数据添加、修改和查询业务等；
+         不允许指定的文本框中输入空字符串，数据格式是否正确及数据类型验证；用户的权限的合法性判断等等，
+
+控制层【表示层】：负责直接跟用户进行交互，一般也就是指系统的界面，用于数据录入，数据显示等。
+              意味着只做与外观显示相关的工作，不属于他的工作不用做。
+
+
+三层架构是指：表示层（UI）、业务逻辑层（BLL）和数据访问层（DAL）
+
+视图层(View)：存放接收用户提交请求的代码
+服务层(Service)：存放系统的业务逻辑代码
+持久层(Dao)：存放直接操作数据库的代码
+
+SpringMVC：
+       作为View层的实现者，完成用户的请求接收功能。
+       SpringMVC的Controller作为整个应用的控制器，完成用户请求的转发及对用户的响应。
+MyBatis：
+       作为 Dao层的实现者，完成对数据库的增、删、改、查功能。
+Spring：
+       以整个应用大管家的身份出现。整个应用中所有的Bean的生命周期行为，均由Spring来管理。
+       即整个应用中所有对象的创建、初始化、销毁，及对象间关联关系的维护，均由Spring进行管理。
+
+
+
+分页处理：
+    1.当前页显示的5条数据的集合
+    2.页码导航显示，总共多少页
+    3.当前为第几页
+    4.当前页的页码背景显示
+    5.每页显示几条
+    使用分页插件工具: pagehelper -----> 主要查看源码：PageInfo --->封装了所有的数据，例如一个页面应当显示多少条信息(PageSize)--->规定，或者当前页面实际显示多少条信息(Size)--->实际个数
+                                                PageHelper --->做拦截器的功能 ，拦截原理：当设置sql语句时，PageHelper通过来设置当前的页码和每页分隔几条这两个参数，然后在执行的sql语句后面拼接上limit,再将这两个值拼接进去。
+
+    PageInfo中封装的数据：
+              private int pageNum;
+              private int pageSize;
+              private int size;
+              private int startRow;               //当前页面第一个元素在数据库中的行号
+              private int endRow;                 //当前页面最后一个元素在数据库中的行号
+              private long total;                 //总记录数
+              private int pages;                  //总页数
+              private List<T> list;               //本页的结果集
+              private int prePage;                //前一页
+              private int nextPage;               //下一页
+              private boolean isFirstPage;         //是否是第一页
+              private boolean isLastPage;          //是否是最后页
+              private boolean hasPreviousPage；     //
+              private boolean hasNextPage;          //
+              private int navigatePages;            //
+              private int[] navigatepageNums;       //
+              private int navigateFirstPage;        //
+              private int navigateLastPage;         //
+
